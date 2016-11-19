@@ -4,6 +4,12 @@ author: "Anh Nguyen"
 date: "November, 2016"
 ---
 
+```{r opts, echo = FALSE}
+knitr::opts_chunk$set(
+  fig.path = "images/"
+)
+```
+
 ## Loading and preprocessing the data
 
 Download, unzip and load data into data frame `data`. 
