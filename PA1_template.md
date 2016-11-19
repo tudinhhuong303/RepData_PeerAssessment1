@@ -87,9 +87,13 @@ data_fill <- data.frame(
     interval = data$interval)
 ```
 We check that are there any missing values remaining or not
+
 ```{r}
 sum(is.na(data_fill$steps))
+
+## [1] 0
 ```
+
 #### 3. A histogram of the total number of steps taken each day
 ```{r}
 fill_steps_per_day <- aggregate(steps ~ date, data_fill, sum)
