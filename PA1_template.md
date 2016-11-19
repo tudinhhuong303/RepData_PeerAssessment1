@@ -4,12 +4,6 @@ author: "Anh Nguyen"
 date: "November, 2016"
 ---
 
-```{r opts, echo = FALSE}
-knitr::opts_chunk$set(
-  fig.path = "images/"
-)
-```
-
 ## Loading and preprocessing the data
 
 Download, unzip and load data into data frame `data`. 
@@ -35,17 +29,22 @@ ggplot(steps_by_day, aes(x = steps)) +
     geom_histogram(fill = "green", binwidth = 1000) + 
     labs(title="Histogram of Steps Taken per Day", 
          x = "Number of Steps per Day", y = "Number of times in a day(Count)") + theme_bw()
+```
+![](figure/unnamed-chunk-2-1.png)
 
+```{r}
 rmean <- mean(steps_by_day$steps, na.rm = TRUE)
 rmedian <- median(steps_by_day$steps, na.rm = TRUE)
 ```
-The mean is **`r sprintf("%.2f", rmean)`**  and median is **`r sprintf("%.2f", rmedian)`**
+
+The mean is **10766.19** and median is **10765.00**
 
 ## What is the average daily activity pattern?
 
 * Calculate average steps for each interval for all days. 
 * Plot the Average Number Steps per Day by Interval. 
-* Find interval with most average steps. 
+* Find interval with most average steps.
+
 ```{r}
 steps_by_interval <- aggregate(steps ~ interval, data, mean)
 
@@ -56,7 +55,9 @@ plot(steps_by_interval$interval,
 max_interval <- steps_by_interval[which.max(steps_by_interval$steps),1]
 ```
 
-The 5-minute interval, on average across all the days in the data set, containing the maximum number of steps is **`r max_interval`**.
+![](figure/unnamed-chunk-3-1.png)
+
+The 5-minute interval, on average across all the days in the data set, containing the maximum number of steps is **835**.
 
 ## Impute missing values.
 Replace missing values with the mean value at the same interval across days.
@@ -101,6 +102,8 @@ ggplot(fill_steps_per_day, aes(x = steps)) +
          x = "Number of Steps per Day", y = "Number of times in a day(Count)") + theme_bw()
 ```
 
+![](figure/unnamed-chunk-7-1.png)
+
 #### 4. Calculate new mean and median for imputed data.
 ```{r}
 steps_mean_fill   <- mean(fill_steps_per_day$steps, na.rm=TRUE)
@@ -111,15 +114,15 @@ steps_median_fill <- median(fill_steps_per_day$steps, na.rm=TRUE)
 
     * Before filling the data
 
-        * Mean : `r sprintf("%.2f", rmean)`
+        * Mean : **10766.19**
     
-        * Median: `r sprintf("%.2f", rmedian)`
+        * Median: **10765.00**
     
     * After filling the data
 
-        * Mean : `r sprintf("%.2f", steps_mean_fill)`
+        * Mean : **10766.19**
     
-        * Median: `r sprintf("%.2f", steps_median_fill)`
+        * Median: **10766.19**
         
 * What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
@@ -141,3 +144,4 @@ ggplot(steps_by_interval_i, aes(x=interval, y=steps)) +
     labs(x="Interval", y="Number of steps") +
     theme_bw()
 ```
+![](figure/unnamed-chunk-9-1.png)
